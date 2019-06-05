@@ -1,0 +1,62 @@
+﻿<h1>User Management System</h1>
+<p>Angular(Front-End Framework) with NestJS (Back-End Framework) and MongoDB(NoSQL Database) using REST Api and Passport with JWT for authentication.</p>
+<div *ngIf="currentUser.roles[0] === 'Admin'">
+<h3>Admin only can edit/delete all users</h3>
+<table class="table table-dark table-hover">
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{user.firstName}}</td>
+        <td>{{user.lastName}}</td>
+        <td>{{user.username}}</td>
+        <td>{{user.roles[0]}}</td>
+        <td>
+		 <a [routerLink]="['edit-user',user._id]" class="btn btn-warning">Edit</a>
+        &nbsp; <a *ngIf="currentUser._id !== user._id" (click)="deleteUser(user._id)" class="btn btn-danger">Delete</a> 
+		</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div *ngIf="currentUser.roles[0] === 'User'">
+<h3>Your profile:(Edit Only)</h3>
+<table id="table">
+	<tbody>
+    <tr>
+        <th>First Name</th>
+        <td data-field="value">: {{users[0].firstName}}</td>
+    </tr>
+    <tr>
+        <th>Last Name</th>
+        <td data-field="value">: {{users[0].lastName}}</td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td>: {{users[0].username}}</td>
+    </tr>
+    <tr>
+        <th>Aadhaar</th>
+        <td>: {{users[0].adhaar}}</td>
+    </tr>
+    <tr>
+        <th>Comments</th>
+        <td>: {{users[0].comments}}</td>
+    </tr>
+    <tr>
+        <th>Website URL</th>
+        <td>: {{users[0].url}}</td>
+    </tr>
+    <tr>
+        <td colspan="2" text-align="center"><a [routerLink]="['edit-user',users[0]._id]" class="btn btn-warning">Edit Profile</a></td>
+    </tr>
+    </tbody>
+</table>
+</div>
